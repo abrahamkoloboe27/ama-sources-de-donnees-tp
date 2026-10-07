@@ -1,0 +1,21 @@
+[project]
+name = "tp-sources-de-donnees"
+version = "1.0.0"
+description = "TP « Sources de données » (AMA) : se connecter et récupérer des données depuis PostgreSQL, MongoDB, des fichiers, des API REST et le web."
+requires-python = ">=3.10"
+dependencies = [
+    "beautifulsoup4>=4.12",
+    "duckdb>=1.1",
+    "ipykernel>=6.29",
+    "jupysql>=0.10",
+    "jupyter>=1.1",
+    "matplotlib>=3.8",
+    "pandas>=2.2",
+    "psycopg[binary]>=3.2",
+    "pyarrow>=16.0",
+    "pymongo>=4.8",
+    "python-dotenv>=1.0",
+    "requests>=2.32",
+    "sqlalchemy>=2.0",
+    "toml>=0.10.2",
+]

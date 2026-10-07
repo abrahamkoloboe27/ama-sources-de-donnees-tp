@@ -1,0 +1,18 @@
+# Secrets
+.env
+!.env.example
+
+# Données téléchargées / produites pendant le TP
+data/*
+!data/README.md
+*.duckdb
+*.duckdb.wal
+
+# Python / Jupyter
+__pycache__/
+*.py[oc]
+.ipynb_checkpoints/
+.venv/
+.idea/
+.vscode/
+.DS_Store
