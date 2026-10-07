@@ -64,15 +64,15 @@ ALTER ROLE tp_lecture SET statement_timeout = '30s';
 | 1:05 – 1:30 | **B · PostgreSQL depuis Python** | notebook 02 | Démontre les sections 6 (gros volumes) et 7 (incrémental) au vidéoprojecteur | Font les sections 1 à 5 : `psycopg`, requête paramétrée, `read_sql`, export des bulletins en CSV et en Parquet |
 | 1:30 – 1:40 | Pause | | | |
 | 1:40 – 2:15 | **C · MongoDB** | notebook 03 | Commente la section 8 (qualité : devises, villes orphelines) avec la classe | Font les sections 1 à 7 : connexion, `find`, `count_documents`, pandas, `$lookup`, pipeline d'agrégation |
-| 2:15 – 2:50 | **D · Atelier au choix**, en binôme | notebook 04, 05 ou 06 | Répartit la salle en trois tiers (un atelier par tiers), circule | **04** fichiers NYC Taxi · **05** API Banque mondiale et Open-Meteo · **06** scraping de books.toscrape.com |
+| 2:15 – 2:50 | **D · Atelier au choix**, en binôme | notebook 04, 05 ou 06 | Laisse chaque binôme choisir, dans la limite d'un tiers de la salle par atelier ; circule | **04** fichiers NYC Taxi · **05** API Banque mondiale et Open-Meteo · **06** scraping de books.toscrape.com |
 | 2:50 – 3:00 | **Restitution** | | Synthèse au tableau | Chaque binôme donne **un chiffre** obtenu et **un réflexe** retenu |
 | **Après** | Autonomie | notebooks 04 à 07 | | Les deux ateliers non choisis, puis le notebook 07 (intégration), exercices restants |
 
 ### Pourquoi ce découpage
 
 - **Les bases (A, B, C) se font en salle**, car c'est là que les débutants bloquent (connexion, identifiants, SQL) et qu'on a besoin de l'enseignant.
-- **Les sources web (D) se font en ateliers** : elles sont plus autonomes, et répartir la salle en trois groupes étale la charge réseau (téléchargements, API, site scrapé).
-- **Certaines sections lourdes sont démontrées, pas exécutées par tous** : notebook 02 §6-7 et notebook 03 §8. Trente parcours complets simultanés de la table `notes` (1,2 M lignes, sans index sur `date_saisie`) chargeraient inutilement la base partagée.
+- **Les sources web (D) se font en ateliers** : elles sont plus autonomes, et limiter chaque atelier à un tiers de la salle étale la charge réseau (téléchargements, API, site scrapé).
+- **Certaines sections lourdes sont démontrées, pas exécutées par tous** : notebook 02 §6-7 et notebook 03 §8. Trente parcours complets simultanés de la table `notes` (1,18 M lignes, sans index sur `date_saisie`) chargeraient inutilement la base partagée.
 
 ### Si vous avez moins de temps
 
@@ -125,7 +125,7 @@ ALTER ROLE tp_lecture SET statement_timeout = '30s';
 | **Pooler PostgreSQL** | Le mode session (port 5432) refuse au-delà de **15 clients**. Le mode transaction (6543) en accepte bien plus, mais avec peu de connexions serveur derrière | Port 6543 partout (déjà dans le `.env`) ; démontrer 02 §6-7 plutôt que les faire exécuter par tous |
 | **Requêtes préparées** | Avec le port 6543 : `prepared statement "_pg3_0" already exists` | Déjà géré : `prepare_threshold=None` en Python, `prepareThreshold=0` dans DataGrip |
 | **Charge MongoDB** | Seul `_id` est indexé : le notebook 03 parcourt `trips` (335 000 documents) une dizaine de fois. Sur un cluster Atlas gratuit (M0), il peut y avoir du bridage | Décaler les lancements ; faire commenter la section 8 au tableau |
-| **Réseau** | Atelier 04 : ≈ 25 Mo par étudiant (dont l'extension DuckDB `httpfs`, 7 à 10 Mo). Atelier 06 : ≈ 53 requêtes par étudiant. L'API Banque mondiale répond parfois en plus de 60 s | Répartir les ateliers en tiers ; partage de connexion en secours ; relancer la cellule en cas de délai dépassé |
+| **Réseau** | Atelier 04 : ≈ 25 Mo par étudiant (dont l'extension DuckDB `httpfs`, 7 à 10 Mo). Atelier 06 : ≈ 53 requêtes par étudiant. L'API Banque mondiale répond parfois en plus de 60 s | Un tiers de la salle au plus par atelier ; partage de connexion en secours ; relancer la cellule en cas de délai dépassé |
 | **Sorties datées** | Météo, mois NYC publiés, fichiers datés : les chiffres des étudiants diffèrent des sorties du dépôt | C'est normal (et pédagogique : la donnée vit) ; le dire en début de séance |
 | **Données personnelles** | Les sorties contiennent des noms et e-mails **fictifs** (Faker) | Rappeler la minimisation : on n'exporte jamais e-mails et téléphones |
 
